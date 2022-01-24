@@ -44,11 +44,10 @@ def all_blog(
         return {
             "data": blogs
         }
-    else:
-        # Only get 10 published blogs
-        return {
-            "data": blogs
-        }
+    # Only get 10 published blogs
+    return {
+        "data": blogs
+    }
 
 
 @app.get('/blog/{id}', status_code=status.HTTP_200_OK)
@@ -56,8 +55,7 @@ def show(blog_id: int, db: Session = Depends(get_db)):
     blog = db.query(models.Blog).filter(models.Blog.id == blog_id).first()
     if blog:
         return {"data": blog}
-    else:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Blog not found")
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Blog not found")
 
 
 @app.post('/blog', status_code=status.HTTP_201_CREATED)
